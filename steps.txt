@@ -1,9 +1,10 @@
 1. File Folder Creation
 2. Packages Installation
-3. Config app.js
+3. Configuration app.js
 4. Run the Sever
 5. User Model Creation
 6. Task Model Creation
 7. OTP Model Creation
 8. Email Utility
 9. User Controller
+10. Send mail and verify OTP

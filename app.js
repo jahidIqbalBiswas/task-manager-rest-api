@@ -32,7 +32,7 @@ mongoose.connect(URL,OPTIONS).then((res) => {
 app.use("/api",router)
 // 404 Routes
 app.use("*",(req,res) => {
-    res.status(404).json({status:"Not Found",message:"Your request url is not valid."})
+    res.status(404).json({status:"Not Found",message:"Your requested url is not valid."})
 })
 
 module.exports = app

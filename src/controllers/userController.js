@@ -30,7 +30,6 @@ exports.login = async (req,res) => {
     } catch (err) {
         res.json({status:"failed",err})
     };
-    
 }
 exports.userProfile = async (req,res) => {
    try {
@@ -51,10 +50,7 @@ exports.updateProfile = async (req,res) => {
         res.json({status:"success",message:`User profile updated successfully`})
     } catch (err) {
     res.json({status:"failed",err})
-        
     };
-    
-
 }
 exports.verifyEmail = async (req,res) => {
     try {
@@ -67,18 +63,39 @@ exports.verifyEmail = async (req,res) => {
             res.json({status:"success",message:"Email send success."})
         }else{
             res.json({status:"unknown mail address",message:"Your email address is not valid"})
-
         }
     } catch (err) {
         res.json({status:"failed",err})
-
     };
-    
-
 }
-exports.verifyOtp = (req,res) => {
-    
+exports.verifyOtp = async (req,res) => {
+    try {
+        const {email,otp} = req.params
+        const isValid = await otpModel.find({email,otp,status:"initial"})
+        if(isValid.length > 0){
+                await otpModel.updateOne({email,otp},{status:"verified"})
+                res.json({status:"success",message:"Your email verified successfully."})
+            
+        }else{
+        res.json({status:"failed",message:"Invalid OTP"})
+        }
+    } catch (err) {
+        res.json({status:"failed",err})
+       
+    };
 }
-exports.resetPassword = (req,res) => {
-    
+exports.resetPassword = async (req,res) => {
+    try {
+        const {email,otp,password} = req.params
+        const isVerified = await otpModel.find({email,otp,status:"verified"})
+        if(isVerified.length > 0){
+            await otpModel.deleteOne({email,otp})
+            await userModel.updateOne({email},{password})
+            res.json({status:"success",message:"Password changed successfully."})
+        }else{
+            res.json({status:"not verified",message:"Your otp not verified."})
+        }
+    } catch (err) {
+        res.json({status:"failed",err})
+    }
 }
