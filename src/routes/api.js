@@ -16,7 +16,11 @@ router.get("/profile",authMiddleware,userController.userProfile)
 router.post("/update-profile/:email",authMiddleware,userController.updateProfile)
 //Task Operations
 router.post("/task/create",authMiddleware,taskController.create)
-
+router.get("/task/show",authMiddleware,taskController.show)
+router.put("/task/update/:id",authMiddleware,taskController.update)
+router.put("/task/update/status/:id",authMiddleware,taskController.updateStatus)
+router.get("/task/filter/status/:status",authMiddleware,taskController.filterByStatus)
+router.delete("/task/delete/:id",authMiddleware,taskController.delete)
 
 
 module.exports = router

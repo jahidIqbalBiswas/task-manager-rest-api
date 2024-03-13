@@ -7,4 +7,5 @@
 7. OTP Model Creation
 8. Email Utility
 9. User Controller
-10. Send mail and verify OTP
+10.Send mail and verify OTP
+11.Task Operations
